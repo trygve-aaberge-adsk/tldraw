@@ -6,6 +6,7 @@ import 'tldraw/tldraw.css'
 // There's a guide at the bottom of this file!
 
 const PERSISTENCE_KEY = 'example-3'
+const isShapeHidden = () => false
 
 export default function PersistenceExample() {
 	//[1]
@@ -29,6 +30,7 @@ export default function PersistenceExample() {
 				loadSnapshot(store, snapshot)
 				setLoadingState({ status: 'ready' })
 			} catch (error: any) {
+				console.log(error)
 				setLoadingState({ status: 'error', error: error.message }) // Something went wrong
 			}
 		} else {
@@ -70,7 +72,7 @@ export default function PersistenceExample() {
 
 	return (
 		<div className="tldraw__editor">
-			<Tldraw store={store} />
+			<Tldraw store={store} isShapeHidden={isShapeHidden} />
 		</div>
 	)
 }
