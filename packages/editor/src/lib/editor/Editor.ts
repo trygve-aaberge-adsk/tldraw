@@ -292,7 +292,7 @@ export interface TLRenderingShape {
 }
 
 /** @public */
-export class Editor extends EventEmitter<TLEventMap> {
+export class Editor<Shape extends TLShape = TLShape> extends EventEmitter<TLEventMap> {
 	readonly id = uniqueId()
 	constructor({
 		store,
@@ -1711,7 +1711,7 @@ export class Editor extends EventEmitter<TLEventMap> {
 	 * @public
 	 * @readonly
 	 */
-	@computed getSelectedShapes(): TLShape[] {
+	@computed getSelectedShapes(): Shape[] {
 		return compact(this.getSelectedShapeIds().map((id) => this.store.get(id)))
 	}
 
@@ -8296,7 +8296,7 @@ export class Editor extends EventEmitter<TLEventMap> {
 	 *
 	 * @public
 	 */
-	updateShapes<T extends TLUnknownShape>(partials: (TLShapePartial<T> | null | undefined)[]) {
+	updateShapes<T extends Shape>(partials: (TLShapePartial<T> | null | undefined)[]) {
 		const compactedPartials: TLShapePartial<T>[] = Array(partials.length)
 
 		for (let i = 0, n = partials.length; i < n; i++) {

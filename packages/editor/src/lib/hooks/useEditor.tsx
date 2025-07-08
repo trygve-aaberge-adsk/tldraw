@@ -1,3 +1,4 @@
+import { TLShape } from '@tldraw/tlschema'
 import React, { createContext } from 'react'
 import { Editor } from '../editor/Editor'
 import { IdProvider } from './useSafeId'
@@ -6,14 +7,14 @@ import { IdProvider } from './useSafeId'
 export const EditorContext = createContext<Editor | null>(null)
 
 /** @public */
-export function useEditor(): Editor {
+export function useEditor<T extends TLShape = TLShape>(): Editor<T> {
 	const editor = React.useContext(EditorContext)
 	if (!editor) {
 		throw new Error(
 			'useEditor must be used inside of the <Tldraw /> or <TldrawEditor /> components'
 		)
 	}
-	return editor
+	return editor as Editor<T>
 }
 
 /** @public */
